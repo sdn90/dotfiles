@@ -16,13 +16,15 @@ Plugin 'mattn/emmet-vim'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-surround'
 Plugin 'Yggdroot/indentLine'
-Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'scrooloose/nerdtree'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'pangloss/vim-javascript'
 Plugin 'Raimondi/delimitMate'
 Plugin 'scrooloose/syntastic'
 Plugin 'mxw/vim-jsx'
+Plugin 'fatih/vim-go'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'elixir-lang/vim-elixir'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -65,7 +67,8 @@ set number
 " Enable syntax highlighting
 syntax on
 " Highlight current line
-set cursorline
+set nocursorline
+set nocursorcolumn
 " Make tabs as wide as two spaces
 set tabstop=2
 " Show “invisible” characters
@@ -73,8 +76,6 @@ set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
-" Ignore case of searches
-set ignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Always show status line
@@ -121,6 +122,7 @@ if has("autocmd")
 	filetype on
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+	autocmd BufNewFile,BufRead *.jsx setfiletype jsx syntax=javascript
 endif
 
 filetype plugin indent on
@@ -133,6 +135,7 @@ autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
 autocmd Filetype liquid setlocal ts=2 sw=2 expandtab
+autocmd Filetype go setlocal noet ts=4 sw=4 sts=4 expandtab
 inoremap jj <ESC>
 
 noremap <S-w> <C-w><C-w>
@@ -166,7 +169,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_quiet_messages = {}
 let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_jsx_checkers = ['jsxhint']
+let g:syntastic_jsx_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
 
 " MatchTagAlways Settings
 
