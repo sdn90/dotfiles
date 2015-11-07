@@ -1,34 +1,36 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible              " be iMproved, required filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
-
-" " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
+call plug#begin('~/.vim/plugged')
 " VUNDLE
 " PLUGINS GO HERE
-Plugin 'mattn/emmet-vim'
-Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-surround'
-Plugin 'Yggdroot/indentLine'
-Plugin 'scrooloose/nerdtree'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'pangloss/vim-javascript'
-Plugin 'Raimondi/delimitMate'
-Plugin 'scrooloose/syntastic'
-Plugin 'mxw/vim-jsx'
-Plugin 'fatih/vim-go'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'elixir-lang/vim-elixir'
+Plug 'bling/vim-airline'
+Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/nerdtree'
+Plug 'Raimondi/delimitMate'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'kien/ctrlp.vim'
+Plug 'morhetz/gruvbox'
+Plug 'benekastah/neomake'
 
-" " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Languages
+"
+"" Javascript
+Plug 'mxw/vim-jsx'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'pangloss/vim-javascript'
+Plug 'heavenshell/vim-jsdoc'
+
+"" HTML/CSS
+Plug 'tpope/vim-liquid'
+Plug 'JulesWang/css.vim'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'mattn/emmet-vim', { 'for': 'html' }
+
+"" Other Languages
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
+Plug 'fatih/vim-go', { 'for': 'go' }
+call plug#end()
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
@@ -50,10 +52,10 @@ let mapleader=" "
 set binary
 set noeol
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
+set backupdir=~/.config/nvim/backups
+set directory=~/.config/nvim/swaps
 if exists("&undodir")
-	set undodir=~/.vim/undo
+	set undodir=~/.config/nvim/undo
 endif
 
 " Respect modeline in files
@@ -123,6 +125,10 @@ if has("autocmd")
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 	autocmd BufNewFile,BufRead *.jsx setfiletype jsx syntax=javascript
+  " Use css and js syntax highlighting for liquid
+  autocmd BufNewFile,BufRead *.scss.liquid setfiletype scss syntax=css
+	autocmd BufNewFile,BufRead *.js.liquid setfiletype js syntax=javascript
+
 endif
 
 filetype plugin indent on
@@ -143,10 +149,9 @@ noremap <S-w> <C-w><C-w>
 let g:html_indent_tags = 'li\|p'
 
 syntax enable
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme gruvbox
 set background=dark
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " turn off arrow keys
 noremap <Up> <NOP>
@@ -162,19 +167,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_quiet_messages = {}
-let g:syntastic_ruby_checkers = ['rubocop', 'mri']
-let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_jsx_checkers = ['eslint']
-let g:syntastic_javascript_checkers = ['eslint']
+autocmd! BufWritePost * Neomake
+let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
-" MatchTagAlways Settings
-
-let g:mta_filetypes = {
-  \ 'html' : 1,
-  \ 'html.handlebars' : 1,
-  \}
+set runtimepath^=~/.vim/bundle/ctrlp.vim
