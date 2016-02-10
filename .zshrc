@@ -1,29 +1,31 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/steven/.oh-my-zsh
-ZSH_THEME="agnoster"
-plugins=(git vi-mode)
+# aliases
+alias l='ls -lf'
 
-# User configuration
+# colors
+export CLICOLOR=1
+export TERM=xterm-256color
+source "$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/MacGPG2/bin:/usr/local/heroku/bin:$HOME/.rbenv/bin:/Users/steven/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+# nvm
+export NVM_DIR="/Users/steven/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-source $ZSH/oh-my-zsh.sh
+# kiex
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# emacs/spacemacs
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
-# GOPATH
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+# chruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
 
-# NVM
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+autoload -U compinit
+setopt
 
-source /Users/steven/.iterm2_shell_integration.zsh
-eval "$(rbenv init -)"
+compinit AUTOMENU
+setopt MENUCOMPLETE
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+export PATH=~/.local/bin:node_modules/.bin:/Users/steven/.themekit:/Users/steven/.local/bin:/Users/steven/.kiex/elixirs/elixir-1.2.1/bin:/Users/steven/.kiex/bin:/Users/steven/.nvm/versions/node/v5.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin

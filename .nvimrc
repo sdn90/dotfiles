@@ -78,8 +78,7 @@ set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
-" Highlight dynamically as pattern is typed
-set incsearch
+" Highlight dynamically as pattern is typed set incsearch
 " Always show status line
 set laststatus=2
 " Enable mouse in all modes
@@ -149,9 +148,9 @@ noremap <S-w> <C-w><C-w>
 let g:html_indent_tags = 'li\|p'
 
 syntax enable
-colorscheme gruvbox
 set background=dark
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+colorscheme gruvbox
 
 " turn off arrow keys
 noremap <Up> <NOP>
@@ -162,12 +161,12 @@ noremap <Right> <NOP>
 " Nerdtree
 autocmd vimenter * NERDTree
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 autocmd! BufWritePost * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_eslint_maker = {
+\ 'args': ['--no-color', '--format', 'compact'],
+\ 'errorformat': '%f: line %l\, col %c\, %m'
+\ }
 let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
