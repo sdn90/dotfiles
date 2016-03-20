@@ -24,18 +24,23 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     elixir
+     elm
      emacs-lisp
+     eyebrowse
      git
+     haskell
+     html
      markdown
      org
-     shell
-     ;; spell-checking
-     syntax-checking
-     version-control
-     html
-     react
      osx
+     react
+     restclient
+     shell
      sql
+     syntax-checking
+     themes-megapack
+     version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -96,7 +101,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(gruvbox
+                         spacemacs-dark
                          spacemacs-light
                          solarized-light
                          solarized-dark
@@ -111,7 +117,7 @@ values."
                                :size 18
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -245,19 +251,32 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+
   (setq-default dotspacemacs-configuration-layers
-                '(shell :variables
-                        shell-default-shell 'multiterm
-                        shell-default-term-shell "/bin/zsh")
-                )
-  (setq-default js2-basic-offset 2)
+    '(shell :variables
+        shell-default-shell 'multiterm
+        shell-default-term-shell "/bin/zsh")
+  )
+
   (setq-default js-indent-level 2)
-     ;;(auto-completion :variables
-     ;;  auto-completion-return-key-behavior 'complete
-     ;;  auto-completion-tab-key-behavior 'cycle
-     ;;  auto-completion-complete-with-key-sequence nil
-     ;;  auto-completion-complete-with-key-sequence-delay 0.1
-     ;;  auto-completion-private-snippets-directory nil)
+  (setq js2-include-node-externs t)
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
+  (setq helm-case-fold-search "smart")
   )
 
 

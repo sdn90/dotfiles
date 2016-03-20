@@ -1,6 +1,3 @@
-# aliases
-alias l='ls -lf'
-
 # colors
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -22,10 +19,34 @@ source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
 
+# zsh
 autoload -U compinit
 setopt
 
 compinit AUTOMENU
 setopt MENUCOMPLETE
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-export PATH=~/.local/bin:node_modules/.bin:/Users/steven/.themekit:/Users/steven/.local/bin:/Users/steven/.kiex/elixirs/elixir-1.2.1/bin:/Users/steven/.kiex/bin:/Users/steven/.nvm/versions/node/v5.4.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+# $PATH
+path=(~/.local/bin
+    node_modules/.bin
+    /Users/steven/.themekit
+    /Users/steven/.local/bin
+    /Users/steven/.kiex/elixirs/elixir-1.2.1/bin
+    /Users/steven/.kiex/bin
+    /Users/steven/.nvm/versions/node/v5.4.1/bin
+    /usr/local/bin
+    /usr/bin
+    /bin
+    /usr/sbin
+    /sbin)
+export PATH
+
+############################################################
+## my custom functions, aliases, etc.
+############################################################
+# alias for youtube-dl
+function ripaudio() { youtube-dl -x --audio-format=wav "$1" }
+
+# aliases
+alias l='ls -lf'
